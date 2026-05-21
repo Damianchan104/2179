@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 250,
+  "data": {
+    "url": "hh_poverty_state.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "filter": "datum.poverty_absolute != null"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "size": 16,
+    "color": "#74a9cf",
+    "cornerRadius": 4
+  },
+  "encoding": {
+    "x": {
+      "field": "state",
+      "type": "nominal",
+      "axis": {"labelAngle": 0, "title": null}
+    },
+    "y": {
+      "aggregate": "min",
+      "field": "poverty_absolute",
+      "type": "quantitative",
+      "axis": {"title": "Absolute Volatility Spectrum (%)"}
+    },
+    "y2": {
+      "aggregate": "max",
+      "field": "poverty_absolute"
+    },
+    "tooltip": [
+      {"field": "state", "type": "nominal"},
+      {"aggregate": "min", "field": "poverty_absolute", "title": "Historical Low %"},
+      {"aggregate": "max", "field": "poverty_absolute", "title": "Historical High %"}
+    ]
+  }
+}

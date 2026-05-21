@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 450,
+  "height": 300,
+  "title": "Absolute Poverty Proportions by State",
+  "data": {
+    "url": "hh_poverty_state.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "filter": "datum.poverty_absolute != null"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "poverty_absolute",
+      "type": "quantitative",
+      "title": "Accumulated Absolute Poverty Metrics (%)"
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State",
+      "sort": "-x"
+    },
+    "color": {
+      "field": "state",
+      "type": "nominal",
+      "legend": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "tooltip": [
+      {"field": "state", "type": "nominal", "title": "State"},
+      {"field": "poverty_absolute", "type": "quantitative", "title": "Absolute Poverty %", "format": ".1f"}
+    ]
+  }
+}

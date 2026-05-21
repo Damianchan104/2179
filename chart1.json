@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 350,
+  "title": "Absolute Poverty Rates Across Malaysian States (2022)",
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "malaysia-states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e0e0e0",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "malaysia-states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "hh_poverty_state.csv",
+              "format": {"type": "csv", "parse": {"date": "string"}}
+            },
+            "key": "state",
+            "fields": ["poverty_absolute", "date"]
+          }
+        },
+        {
+          "filter": "datum.date === '2022-01-01'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "poverty_absolute",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [2, 5, 10, 15],
+            "range": ["#ffeeec", "#fcbba1", "#fc9272", "#ef3b2c", "#990000"]
+          },
+          "title": "Poverty Rate (%)"
+        },
+        "tooltip": [
+          {"field": "id", "type": "nominal", "title": "State"},
+          {"field": "poverty_absolute", "type": "quantitative", "title": "Absolute Poverty (%)", "format": ".1f"}
+        ]
+      }
+    }
+  ]
+}

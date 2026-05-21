@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 280,
+  "data": {
+    "url": "hh_poverty.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "lookup": "date",
+      "from": {
+        "key": "date",
+        "fields": ["gdp_pc"],
+        "data": {
+          "values": [
+            {"date": "1970-01-01", "gdp_pc": 379.63},
+            {"date": "1976-01-01", "gdp_pc": 940.44},
+            {"date": "1979-01-01", "gdp_pc": 1679.88},
+            {"date": "1984-01-01", "gdp_pc": 2299.81},
+            {"date": "1987-01-01", "gdp_pc": 1977.13},
+            {"date": "1989-01-01", "gdp_pc": 2243.60},
+            {"date": "1992-01-01", "gdp_pc": 3141.43},
+            {"date": "1995-01-01", "gdp_pc": 4363.14},
+            {"date": "1997-01-01", "gdp_pc": 4678.56},
+            {"date": "1999-01-01", "gdp_pc": 3527.82},
+            {"date": "2002-01-01", "gdp_pc": 4184.03},
+            {"date": "2004-01-01", "gdp_pc": 4939.25},
+            {"date": "2007-01-01", "gdp_pc": 7168.93},
+            {"date": "2009-01-01", "gdp_pc": 7191.43},
+            {"date": "2012-01-01", "gdp_pc": 10600.57},
+            {"date": "2014-01-01", "gdp_pc": 11013.31},
+            {"date": "2016-01-01", "gdp_pc": 9476.53},
+            {"date": "2019-01-01", "gdp_pc": 10920.19},
+            {"date": "2020-01-01", "gdp_pc": 9957.53},
+            {"date": "2022-01-01", "gdp_pc": 11754.57}
+          ]
+        }
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "line", "color": "#bd0026", "point": true},
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "axis": {"format": "%Y", "title": "Year"}
+        },
+        "y": {
+          "field": "poverty_absolute",
+          "type": "quantitative",
+          "axis": {
+            "title": "Absolute Poverty Rate (%)",
+            "titleColor": "#bd0026"
+          }
+        },
+        "tooltip": [
+          {"field": "date", "type": "temporal", "format": "%Y"},
+          {"field": "poverty_absolute", "type": "quantitative", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "line", "color": "#1f77b4", "point": {"symbol": "square"}},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {
+          "field": "gdp_pc",
+          "type": "quantitative",
+          "axis": {
+            "title": "GDP per Capita (USD)",
+            "titleColor": "#1f77b4"
+          }
+        },
+        "tooltip": [
+          {"field": "date", "type": "temporal", "format": "%Y"},
+          {"field": "gdp_pc", "type": "quantitative", "format": "$,.0f"}
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {"y": "independent"}
+  }
+}

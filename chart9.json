@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 280,
+  "data": {
+    "url": "hh_poverty_state.csv",
+    "format": {"type": "csv", "parse": {"date": "string"}}
+  },
+  "params": [
+    {
+      "name": "Hardcore_Floor",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 1.2,
+        "step": 0.1,
+        "name": "Min Hardcore Floor %: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.date === '2022-01-01'"},
+    {"filter": "datum.poverty_hardcore >= Hardcore_Floor"}
+  ],
+  "mark": {
+    "type": "circle",
+    "size": 140,
+    "filled": true,
+    "stroke": "#475569",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "poverty_absolute",
+      "type": "quantitative",
+      "axis": {"title": "Absolute Indicator %"}
+    },
+    "y": {
+      "field": "poverty_relative",
+      "type": "quantitative",
+      "axis": {"title": "Relative Indicator %"}
+    },
+    "color": {
+      "field": "state",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      {"field": "state", "type": "nominal"},
+      {"field": "poverty_absolute", "type": "quantitative"},
+      {"field": "poverty_relative", "type": "quantitative"}
+    ]
+  }
+}

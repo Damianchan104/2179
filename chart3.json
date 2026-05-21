@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 280,
+  "data": {
+    "url": "hh_poverty.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "fold": ["poverty_hardcore", "poverty_absolute"],
+      "as": ["Category", "Rate"]
+    },
+    {
+      "filter": "datum.Rate != null"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "axis": {"format": "%Y"}
+    },
+    "y": {
+      "field": "Rate",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {"title": "Normalized Share"}
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "scale": {
+        "range": ["#fdbb84", "#b30000"]
+      }
+    },
+    "tooltip": [
+      {"field": "date", "type": "temporal", "format": "%Y"},
+      {"field": "Category", "type": "nominal"},
+      {"field": "Rate", "type": "quantitative", "format": ".1f"}
+    ]
+  }
+}

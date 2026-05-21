@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 280,
+  "title": "Sub-national Human Development Index (HDI) Rankings",
+  "data": {
+    "url": "malaysia_states_hdi.csv",
+    "format": {"type": "csv"}
+  },
+  "encoding": {
+    "x": {
+      "field": "hdi",
+      "type": "quantitative",
+      "title": "Human Development Index Score (0 - 1)",
+      "scale": {"domain": [0.65, 0.90]},
+      "axis": {
+        "grid": false,
+        "domain": false
+      }
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": "-x",
+      "axis": {
+        "title": null,
+        "domain": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#e2e8f0",
+        "strokeWidth": 2
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 120,
+        "color": "#0d9488"
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State/Territory"},
+          {"field": "hdi", "type": "quantitative", "title": "Official HDI Score", "format": ".3f"}
+        ]
+      }
+    }
+  ]
+}

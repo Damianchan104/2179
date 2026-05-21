@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 300,
+  "title": "Poverty Type Comparison by State (Absolute vs Relative)",
+  "data": {
+    "url": "hh_poverty_state.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "fold": ["poverty_absolute", "poverty_relative"],
+      "as": ["Poverty_Type", "Percentage"]
+    },
+    {
+      "filter": "datum.Percentage != null"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State",
+      "sort": {"op": "sum", "field": "Percentage", "order": "descending"}
+    },
+    "x": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "title": "Poverty Rate Score (%)",
+      "stack": null
+    },
+    "yOffset": {
+      "field": "Poverty_Type"
+    },
+    "color": {
+      "field": "Poverty_Type",
+      "type": "nominal",
+      "scale": {
+        "domain": ["poverty_absolute", "poverty_relative"],
+        "range": ["#1f77b4", "#aec7e8"]
+      },
+      "title": "Metrics Profile"
+    },
+    "tooltip": [
+      {"field": "state", "type": "nominal", "title": "State"},
+      {"field": "Poverty_Type", "type": "nominal", "title": "Type"},
+      {"field": "Percentage", "type": "quantitative", "title": "Rate (%)", "format": ".1f"}
+    ]
+  }
+}
