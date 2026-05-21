@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia Household Poverty & Macroeconomic Dashboard</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .dashboard-header h1 {
+            margin: 0 0 10px 0;
+            color: #0f172a;
+            font-size: 2.2rem;
+        }
+
+        .dashboard-header p {
+            margin: 0;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .full-width-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .vis-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            box-sizing: border-box;
+        }
+
+        .vis-card h2 {
+            align-self: flex-start;
+            margin: 0 0 8px 0;
+            font-size: 1.25rem;
+            color: #334155;
+        }
+
+        .vis-card p {
+            align-self: flex-start;
+            margin: 0 0 20px 0;
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .vis-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            min-height: 280px;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>Malaysia Household Poverty Analysis Dashboard</h1>
+        <p>An interactive spatial and statistical exploration of historical macroeconomic boundaries and sub-national vulnerability metrics.</p>
+    </header>
+
+    <div class="dashboard-wrapper">
+
+        <main class="grid-container">
+
+            <section class="vis-card">
+                <h2>1. Choropleth Geospatial Map</h2>
+                <p>Spatial distribution mapping absolute poverty rates across Malaysian states.</p>
+                <div class="vis-container" id="chart1"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>2. Dual-Axis Macro Layer</h2>
+                <p>Tracing the historical inverse tracking relationship between GDP per capita and baseline absolute poverty lines.</p>
+                <div class="vis-container" id="chart2"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>3. Normalized Streamgraph</h2>
+                <p>Visualizing shifts in proportional distribution weights between hardcore and absolute metrics over time.</p>
+                <div class="vis-container" id="chart3"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>4. Absolute Poverty Proportions</h2>
+                <p>Cross-sectional bar chart highlighting the accumulated proportions of absolute poverty metrics by state.</p>
+                <div class="vis-container" id="chart4"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>5. Diverging Bar Deviation</h2>
+                <p>Quantifying individual state level performance variances relative to the calculated national benchmark baseline.</p>
+                <div class="vis-container" id="chart5"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>6. Sub-national Human Development Index (HDI)</h2>
+                <p>Ranked baseline profiles utilizing UN development metrics to evaluate structural socio-economic parameters across regions.</p>
+                <div class="vis-container" id="chart6"></div>
+            </section>
+
+        </main>
+
+        <div class="full-width-container">
+
+            <section class="vis-card">
+                <h2>7. Historical Volatility Range Envelope</h2>
+                <p>Comprehensive profile tracking extreme performance boundaries and historical low/high spreads for each unique state.</p>
+                <div class="vis-container" id="chart7"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>8. Faceted Area Small Multiples</h2>
+                <p>Independent multi-panel trend analysis isolating individual trajectory paths against a static reference threshold marker.</p>
+                <div class="vis-container" id="chart8"></div>
+            </section>
+
+        </div>
+
+        <div class="grid-container">
+
+            <section class="vis-card">
+                <h2>9. Interactive Distribution Scatter</h2>
+                <p>Evaluating multi-dimensional coordinates with custom slider filters to dynamically isolate structural parameters.</p>
+                <div class="vis-container" id="chart9"></div>
+            </section>
+
+            <section class="vis-card">
+                <h2>10. Poverty Type Side-by-Side Comparison</h2>
+                <p>A paired comparative analysis analyzing the structural gap between absolute and relative indicators per region.</p>
+                <div class="vis-container" id="chart10"></div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script>
+        vegaEmbed('#chart1', 'chart1.json').catch(console.error);
+        vegaEmbed('#chart2', 'chart2.json').catch(console.error);
+        vegaEmbed('#chart3', 'chart3.json').catch(console.error);
+        vegaEmbed('#chart4', 'chart4.json').catch(console.error);
+        vegaEmbed('#chart5', 'chart5.json').catch(console.error);
+        vegaEmbed('#chart6', 'chart6.json').catch(console.error);
+        vegaEmbed('#chart7', 'chart7.json').catch(console.error);
+        vegaEmbed('#chart8', 'chart8.json').catch(console.error);
+        vegaEmbed('#chart9', 'chart9.json').catch(console.error);
+        vegaEmbed('#chart10', 'chart10.json').catch(console.error);
+    </script>
+
+</body>
+</html>
