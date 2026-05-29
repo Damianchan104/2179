@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,37 +16,38 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
+            background: #eef4f7;
             color: #1e293b;
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            padding: 25px;
+            line-height: 1.7;
         }
 
         .dashboard-header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 30px;
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 35px;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #dbe7ee;
         }
 
         .dashboard-header h1 {
-            margin-bottom: 10px;
-            font-size: 2.2rem;
+            margin: 0 0 12px 0;
+            font-size: 2.3rem;
             color: #0f172a;
         }
 
         .dashboard-header p {
-            color: #64748b;
-            max-width: 700px;
+            max-width: 760px;
             margin: 0 auto;
+            color: #64748b;
             font-size: 1rem;
         }
 
         .dashboard-wrapper {
-            max-width: 1350px;
+            max-width: 1380px;
             margin: 0 auto;
         }
 
@@ -59,30 +62,37 @@
         }
 
         .vis-card {
-            background: white;
-            border-radius: 14px;
-            padding: 24px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 28px;
+            border: 1px solid #dce7ef;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: 0.2s ease;
+        }
+
+        .vis-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.06);
         }
 
         .vis-card h2 {
             width: 100%;
             margin-top: 0;
-            margin-bottom: 12px;
-            color: #1e293b;
-            font-size: 1.25rem;
+            margin-bottom: 14px;
+            font-size: 1.3rem;
+            color: #0f172a;
         }
 
         .vis-card p {
             width: 100%;
             margin-top: 0;
-            margin-bottom: 8px;
-            color: #64748b;
-            font-size: 0.95rem;
+            margin-bottom: 14px;
+            font-size: 0.96rem;
+            color: #475569;
+            text-align: justify;
         }
 
         .vis-container {
@@ -90,19 +100,21 @@
             display: flex;
             justify-content: center;
             overflow-x: auto;
-            margin-top: 15px;
+            margin-top: 10px;
+            padding-top: 5px;
         }
 
         footer {
-            margin-top: 40px;
-            padding: 25px;
-            background: white;
-            border-radius: 14px;
+            margin-top: 45px;
+            padding: 28px;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #dbe7ee;
             text-align: center;
             color: #64748b;
             font-size: 14px;
             line-height: 1.8;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         @media (max-width: 1024px) {
@@ -128,7 +140,7 @@
         <h1>Malaysia Household Poverty Analysis Dashboard</h1>
 
         <p>
-            Exploring poverty trends, economic growth, and regional inequalities across Malaysia.
+            Exploring poverty trends, economic growth, and regional inequality across Malaysia using historical and spatial socio-economic indicators.
         </p>
 
     </header>
@@ -143,9 +155,11 @@
 
                 <h2>1. Poverty Distribution Across Malaysian States</h2>
 
-                <p>Sabah records the country's highest absolute poverty rate.</p>
-                <p>Urban regions generally show lower poverty concentrations.</p>
-                <p>East Malaysia displays deeper regional inequality patterns.</p>
+                <p>
+                    Malaysia’s eastern states continue facing significantly higher poverty levels than western urban regions.
+                    The map highlights Sabah as the country’s most vulnerable state during 2022.
+                    Economic development remains uneven despite long-term national poverty reduction efforts.
+                </p>
 
                 <div class="vis-container" id="chart1"></div>
 
@@ -157,9 +171,11 @@
 
                 <h2>2. Poverty Reduction and GDP Growth Trends</h2>
 
-                <p>Poverty steadily declined during Malaysia's economic expansion period.</p>
-                <p>GDP growth strongly improved after the early 1990s.</p>
-                <p>Economic downturns briefly slowed poverty reduction progress.</p>
+                <p>
+                    Malaysia’s poverty rate steadily declined alongside long-term national economic growth.
+                    Periods of slower GDP growth briefly affected poverty reduction performance nationwide.
+                    The chart demonstrates how economic expansion contributed towards improved living standards.
+                </p>
 
                 <div class="vis-container" id="chart2"></div>
 
@@ -171,9 +187,11 @@
 
                 <h2>3. Poverty Composition Changes Over Time</h2>
 
-                <p>Hardcore poverty declined significantly across recent decades.</p>
-                <p>Absolute poverty remained larger than hardcore poverty nationally.</p>
-                <p>Development programs reduced extreme financial hardship levels.</p>
+                <p>
+                    Hardcore poverty reduced substantially throughout recent decades across Malaysia.
+                    Absolute poverty remained consistently larger than hardcore poverty measurements nationally.
+                    Government development programs contributed towards reducing severe financial hardship levels.
+                </p>
 
                 <div class="vis-container" id="chart3"></div>
 
@@ -185,9 +203,11 @@
 
                 <h2>4. State Poverty Rankings</h2>
 
-                <p>Sabah remains the most vulnerable state nationally.</p>
-                <p>Several states maintain relatively moderate poverty rates.</p>
-                <p>Wealth distribution differs greatly between Malaysian regions.</p>
+                <p>
+                    Several Malaysian states maintain relatively low poverty levels compared with national averages.
+                    Sabah continues recording significantly higher poverty percentages than most other regions.
+                    The ranking chart clearly highlights strong regional inequality throughout the country.
+                </p>
 
                 <div class="vis-container" id="chart4"></div>
 
@@ -199,9 +219,11 @@
 
                 <h2>5. Poverty Difference From National Average</h2>
 
-                <p>Positive bars indicate poverty above national average levels.</p>
-                <p>Negative bars represent states below national poverty averages.</p>
-                <p>Sabah exceeds the national baseline by large margins.</p>
+                <p>
+                    States above the national baseline experience greater poverty pressures than average.
+                    Negative deviations represent states performing better than the national poverty benchmark.
+                    Sabah exceeds the national average by a considerably large margin.
+                </p>
 
                 <div class="vis-container" id="chart5"></div>
 
@@ -213,9 +235,11 @@
 
                 <h2>6. Human Development Index by State</h2>
 
-                <p>Higher HDI scores indicate stronger living conditions overall.</p>
-                <p>Kuala Lumpur records Malaysia's highest development levels.</p>
-                <p>Lower HDI states often experience higher poverty challenges.</p>
+                <p>
+                    Higher HDI scores generally indicate stronger healthcare, education, and living conditions.
+                    Kuala Lumpur demonstrates the country’s highest overall human development performance.
+                    Lower HDI regions commonly experience greater poverty and economic vulnerability challenges.
+                </p>
 
                 <div class="vis-container" id="chart6"></div>
 
@@ -227,9 +251,11 @@
 
                 <h2>7. Historical Poverty Range by State</h2>
 
-                <p>Wide ranges indicate unstable long-term poverty performance patterns.</p>
-                <p>Narrow ranges suggest stronger economic stability over time.</p>
-                <p>Sabah experienced the largest historical poverty fluctuations nationally.</p>
+                <p>
+                    Historical poverty volatility differs greatly between Malaysian states over time.
+                    Wider ranges suggest unstable economic resilience and changing poverty conditions.
+                    Sabah experienced the largest long-term poverty fluctuations among all states analysed.
+                </p>
 
                 <div class="vis-container" id="chart7"></div>
 
@@ -241,9 +267,11 @@
 
                 <h2>8. Historical Poverty Trends Among Highest States</h2>
 
-                <p>Sabah maintained Malaysia's highest poverty trajectory historically.</p>
-                <p>Most states gradually reduced poverty through economic development.</p>
-                <p>Poverty reduction speed differs between individual Malaysian states.</p>
+                <p>
+                    Most Malaysian states gradually reduced poverty rates through economic development progress.
+                    Sabah consistently remained among the highest poverty trajectories historically nationwide.
+                    The chart reveals unequal poverty reduction speeds between different Malaysian regions.
+                </p>
 
                 <div class="vis-container" id="chart8"></div>
 
@@ -255,9 +283,11 @@
 
                 <h2>9. Absolute and Relative Poverty Comparison</h2>
 
-                <p>Relative poverty remains higher within developed urban regions.</p>
-                <p>Absolute poverty measures basic household survival difficulties.</p>
-                <p>Relative poverty reflects inequality within modern living standards.</p>
+                <p>
+                    Relative poverty remains visible even within economically developed urban states.
+                    Absolute poverty measures severe financial hardship affecting basic household survival needs.
+                    The comparison reveals continuing inequality despite broader national economic development.
+                </p>
 
                 <div class="vis-container" id="chart9"></div>
 
@@ -269,9 +299,11 @@
 
                 <h2>10. State Comparison Between Poverty Categories</h2>
 
-                <p>Relative poverty exceeds absolute poverty across many states.</p>
-                <p>Economic growth does not eliminate inequality completely nationwide.</p>
-                <p>Poverty experiences vary between regional economic structures.</p>
+                <p>
+                    Relative poverty percentages exceed absolute poverty rates across many Malaysian states.
+                    Economic growth alone does not completely remove inequality within modern societies.
+                    Regional economic structures strongly influence household financial vulnerability patterns.
+                </p>
 
                 <div class="vis-container" id="chart10"></div>
 
@@ -292,7 +324,7 @@
         </p>
 
         <p>
-            Data Sources: DOSM Malaysia, World Bank, UNDP Malaysia
+            Data Sources: DOSM Malaysia, World Bank, and UNDP Malaysia
         </p>
 
     </footer>
