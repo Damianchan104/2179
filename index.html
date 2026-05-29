@@ -3,201 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malaysia Household Poverty & Macroeconomic Dashboard</title>
-    
+
+    <title>Malaysia Household Poverty Analysis Dashboard</title>
+
     <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.21.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0"></script>
 
     <style>
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .dashboard-header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 30px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .dashboard-header h1 {
-            margin: 0 0 10px 0;
-            color: #0f172a;
+            margin-bottom: 10px;
             font-size: 2.2rem;
+            color: #0f172a;
         }
 
         .dashboard-header p {
-            margin: 0;
             color: #64748b;
-            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1rem;
         }
 
         .dashboard-wrapper {
-            max-width: 1300px;
+            max-width: 1350px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            width: 100%;
         }
 
-        .full-width-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            width: 100%;
+        .full-width {
+            grid-column: 1 / -1;
         }
 
         .vis-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 1px solid #e2e8f0;
-            box-sizing: border-box;
         }
 
         .vis-card h2 {
-            align-self: flex-start;
-            margin: 0 0 8px 0;
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #1e293b;
             font-size: 1.25rem;
-            color: #334155;
         }
 
         .vis-card p {
-            align-self: flex-start;
-            margin: 0 0 20px 0;
-            font-size: 0.9rem;
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 8px;
             color: #64748b;
-            line-height: 1.4;
+            font-size: 0.95rem;
         }
 
         .vis-container {
             width: 100%;
             display: flex;
             justify-content: center;
-            min-height: 280px;
             overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 14px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+            border: 1px solid #e2e8f0;
         }
 
         @media (max-width: 1024px) {
+
             .grid-container {
                 grid-template-columns: 1fr;
             }
+
+            .full-width {
+                grid-column: auto;
+            }
+
         }
+
     </style>
+
 </head>
+
 <body>
 
     <header class="dashboard-header">
+
         <h1>Malaysia Household Poverty Analysis Dashboard</h1>
-        <p>An interactive spatial and statistical exploration of historical macroeconomic boundaries and sub-national vulnerability metrics.</p>
+
+        <p>
+            Exploring poverty trends, economic growth, and regional inequalities across Malaysia.
+        </p>
+
     </header>
 
     <div class="dashboard-wrapper">
 
         <main class="grid-container">
 
+            <!-- CHART 1 -->
+
             <section class="vis-card">
-                <h2>1. Choropleth Geospatial Map</h2>
-                <p>Spatial distribution mapping absolute poverty rates across Malaysian states.</p>
+
+                <h2>1. Poverty Distribution Across Malaysian States</h2>
+
+                <p>Sabah records the country's highest absolute poverty rate.</p>
+                <p>Urban regions generally show lower poverty concentrations.</p>
+                <p>East Malaysia displays deeper regional inequality patterns.</p>
+
                 <div class="vis-container" id="chart1"></div>
+
             </section>
 
+            <!-- CHART 2 -->
+
             <section class="vis-card">
-                <h2>2. Dual-Axis Macro Layer</h2>
-                <p>Tracing the historical inverse tracking relationship between GDP per capita and baseline absolute poverty lines.</p>
+
+                <h2>2. Poverty Reduction and GDP Growth Trends</h2>
+
+                <p>Poverty steadily declined during Malaysia's economic expansion period.</p>
+                <p>GDP growth strongly improved after the early 1990s.</p>
+                <p>Economic downturns briefly slowed poverty reduction progress.</p>
+
                 <div class="vis-container" id="chart2"></div>
+
             </section>
 
+            <!-- CHART 3 -->
+
             <section class="vis-card">
-                <h2>3. Normalized Streamgraph</h2>
-                <p>Visualizing shifts in proportional distribution weights between hardcore and absolute metrics over time.</p>
+
+                <h2>3. Poverty Composition Changes Over Time</h2>
+
+                <p>Hardcore poverty declined significantly across recent decades.</p>
+                <p>Absolute poverty remained larger than hardcore poverty nationally.</p>
+                <p>Development programs reduced extreme financial hardship levels.</p>
+
                 <div class="vis-container" id="chart3"></div>
+
             </section>
 
+            <!-- CHART 4 -->
+
             <section class="vis-card">
-                <h2>4. Absolute Poverty Proportions</h2>
-                <p>Cross-sectional bar chart highlighting the accumulated proportions of absolute poverty metrics by state.</p>
+
+                <h2>4. State Poverty Rankings</h2>
+
+                <p>Sabah remains the most vulnerable state nationally.</p>
+                <p>Several states maintain relatively moderate poverty rates.</p>
+                <p>Wealth distribution differs greatly between Malaysian regions.</p>
+
                 <div class="vis-container" id="chart4"></div>
+
             </section>
 
+            <!-- CHART 5 -->
+
             <section class="vis-card">
-                <h2>5. Diverging Bar Deviation</h2>
-                <p>Quantifying individual state level performance variances relative to the calculated national benchmark baseline.</p>
+
+                <h2>5. Poverty Difference From National Average</h2>
+
+                <p>Positive bars indicate poverty above national average levels.</p>
+                <p>Negative bars represent states below national poverty averages.</p>
+                <p>Sabah exceeds the national baseline by large margins.</p>
+
                 <div class="vis-container" id="chart5"></div>
+
             </section>
 
+            <!-- CHART 6 -->
+
             <section class="vis-card">
-                <h2>6. Sub-national Human Development Index (HDI)</h2>
-                <p>Ranked baseline profiles utilizing UN development metrics to evaluate structural socio-economic parameters across regions.</p>
+
+                <h2>6. Human Development Index by State</h2>
+
+                <p>Higher HDI scores indicate stronger living conditions overall.</p>
+                <p>Kuala Lumpur records Malaysia's highest development levels.</p>
+                <p>Lower HDI states often experience higher poverty challenges.</p>
+
                 <div class="vis-container" id="chart6"></div>
+
+            </section>
+
+            <!-- CHART 7 -->
+
+            <section class="vis-card full-width">
+
+                <h2>7. Historical Poverty Range by State</h2>
+
+                <p>Wide ranges indicate unstable long-term poverty performance patterns.</p>
+                <p>Narrow ranges suggest stronger economic stability over time.</p>
+                <p>Sabah experienced the largest historical poverty fluctuations nationally.</p>
+
+                <div class="vis-container" id="chart7"></div>
+
+            </section>
+
+            <!-- CHART 8 -->
+
+            <section class="vis-card full-width">
+
+                <h2>8. Historical Poverty Trends Among Highest States</h2>
+
+                <p>Sabah maintained Malaysia's highest poverty trajectory historically.</p>
+                <p>Most states gradually reduced poverty through economic development.</p>
+                <p>Poverty reduction speed differs between individual Malaysian states.</p>
+
+                <div class="vis-container" id="chart8"></div>
+
+            </section>
+
+            <!-- CHART 9 -->
+
+            <section class="vis-card">
+
+                <h2>9. Absolute and Relative Poverty Comparison</h2>
+
+                <p>Relative poverty remains higher within developed urban regions.</p>
+                <p>Absolute poverty measures basic household survival difficulties.</p>
+                <p>Relative poverty reflects inequality within modern living standards.</p>
+
+                <div class="vis-container" id="chart9"></div>
+
+            </section>
+
+            <!-- CHART 10 -->
+
+            <section class="vis-card">
+
+                <h2>10. State Comparison Between Poverty Categories</h2>
+
+                <p>Relative poverty exceeds absolute poverty across many states.</p>
+                <p>Economic growth does not eliminate inequality completely nationwide.</p>
+                <p>Poverty experiences vary between regional economic structures.</p>
+
+                <div class="vis-container" id="chart10"></div>
+
             </section>
 
         </main>
 
-        <div class="full-width-container">
-
-            <section class="vis-card">
-                <h2>7. Historical Volatility Range Envelope</h2>
-                <p>Comprehensive profile tracking extreme performance boundaries and historical low/high spreads for each unique state.</p>
-                <div class="vis-container" id="chart7"></div>
-            </section>
-
-            <section class="vis-card">
-                <h2>8. Faceted Area Small Multiples</h2>
-                <p>Independent multi-panel trend analysis isolating individual trajectory paths against a static reference threshold marker.</p>
-                <div class="vis-container" id="chart8"></div>
-            </section>
-
-        </div>
-
-        <div class="grid-container">
-
-            <section class="vis-card">
-                <h2>9. Interactive Distribution Scatter</h2>
-                <p>Evaluating multi-dimensional coordinates with custom slider filters to dynamically isolate structural parameters.</p>
-                <div class="vis-container" id="chart9"></div>
-            </section>
-
-            <section class="vis-card">
-                <h2>10. Poverty Type Side-by-Side Comparison</h2>
-                <p>A paired comparative analysis analyzing the structural gap between absolute and relative indicators per region.</p>
-                <div class="vis-container" id="chart10"></div>
-            </section>
-
-        </div>
-
     </div>
 
+    <footer>
+
+        <p>
+            Author: Damian Chan Jun Wen | FIT2179 Data Visualisation 2
+        </p>
+
+        <p>
+            Published: May 2026
+        </p>
+
+        <p>
+            Data Sources: DOSM Malaysia, World Bank, UNDP Malaysia
+        </p>
+
+    </footer>
+
     <script>
+
         vegaEmbed('#chart1', 'chart1.json').catch(console.error);
+
         vegaEmbed('#chart2', 'chart2.json').catch(console.error);
+
         vegaEmbed('#chart3', 'chart3.json').catch(console.error);
+
         vegaEmbed('#chart4', 'chart4.json').catch(console.error);
+
         vegaEmbed('#chart5', 'chart5.json').catch(console.error);
+
         vegaEmbed('#chart6', 'chart6.json').catch(console.error);
+
         vegaEmbed('#chart7', 'chart7.json').catch(console.error);
+
         vegaEmbed('#chart8', 'chart8.json').catch(console.error);
+
         vegaEmbed('#chart9', 'chart9.json').catch(console.error);
+
         vegaEmbed('#chart10', 'chart10.json').catch(console.error);
+
     </script>
 
 </body>
+
 </html>
