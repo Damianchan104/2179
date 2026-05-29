@@ -12,7 +12,10 @@
       "filter": "datum.poverty_absolute != null"
     }
   ],
-  "mark": "bar",
+  "mark": {
+    "type": "bar",
+    "color": "#4f46e5"
+  },
   "encoding": {
     "x": {
       "field": "poverty_absolute",
@@ -24,14 +27,6 @@
       "type": "nominal",
       "title": "State",
       "sort": "-x"
-    },
-    "color": {
-      "field": "state",
-      "type": "nominal",
-      "legend": null,
-      "scale": {
-        "scheme": "tableau10"
-      }
     },
     "tooltip": [
       {"field": "state", "type": "nominal", "title": "State"},

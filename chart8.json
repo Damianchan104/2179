@@ -1,62 +1,108 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Historical Absolute Poverty Trajectories by State",
+  "width": 800,
+  "height": 400,
+  "title": "Top 5 Historical Absolute Poverty Trajectories (Highlighting Sabah)",
   "data": {
     "url": "hh_poverty_state.csv",
     "format": {"type": "csv"}
   },
-  "facet": {
-    "field": "state",
-    "type": "nominal",
-    "columns": 4,
-    "title": null
-  },
-  "spec": {
-    "width": 100,
-    "height": 70,
-    "layer": [
-      {
-        "mark": {
-          "type": "area",
-          "line": {"color": "#023e8a", "width": 1.5},
-          "color": "#e0f2fe"
-        },
-        "encoding": {
-          "x": {
-            "field": "date",
-            "type": "temporal",
-            "axis": {
-              "format": "%y", 
-              "title": null,
-              "tickCount": 3
-            }
-          },
-          "y": {
-            "field": "poverty_absolute",
-            "type": "quantitative",
-            "axis": {
-              "title": null,
-              "tickCount": 3
-            }
-          }
+  "transform": [
+    {
+      "filter": "datum.poverty_absolute != null"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "mean",
+          "field": "poverty_absolute",
+          "as": "mean_poverty"
         }
+      ],
+      "groupby": ["state"]
+    },
+    {
+      "window": [
+        {
+          "op": "dense_rank",
+          "as": "poverty_rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "mean_poverty",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.poverty_rank <= 5"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5
       },
-      {
-        "mark": {
-          "type": "rule",
-          "color": "#e67e22",
-          "strokeDash": [3, 3]
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Year"
         },
-        "encoding": {
-          "y": {"datum": 10}
+        "y": {
+          "field": "poverty_absolute",
+          "type": "quantitative",
+          "title": "Absolute Poverty Rate (%)"
+        },
+        "detail": {
+          "field": "state",
+          "type": "nominal"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.state === 'Sabah'",
+            "value": "#dc2626"
+          },
+          "value": "#cbd5e1"
+        },
+        "zindex": {
+          "condition": {
+            "test": "datum.state === 'Sabah'",
+            "value": 1
+          },
+          "value": 0
         }
       }
-    ]
-  },
-  "resolve": {
-    "scale": {
-      "x": "independent",
-      "y": "independent"
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 70
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "poverty_absolute",
+          "type": "quantitative"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.state === 'Sabah'",
+            "value": "#dc2626"
+          },
+          "value": "transparent"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "date", "type": "temporal", "title": "Year", "format": "%Y"},
+          {"field": "poverty_absolute", "type": "quantitative", "title": "Absolute Poverty (%)", "format": ".1f"}
+        ]
+      }
     }
-  }
+  ]
 }

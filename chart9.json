@@ -1,7 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 400,
-  "height": 280,
+  "height": 400,
+  "title": {
+    "text": "Comparative Analysis: Absolute vs. Relative Poverty (2022)",
+    "subtitle": "A diverging structure evaluating regional household baseline disparities",
+    "anchor": "start",
+    "offset": 20
+  },
   "data": {
     "url": "hh_poverty_state.csv",
     "format": {"type": "csv", "parse": {"date": "string"}}
@@ -21,35 +27,50 @@
   ],
   "transform": [
     {"filter": "datum.date === '2022-01-01'"},
-    {"filter": "datum.poverty_hardcore >= Hardcore_Floor"}
+    {"filter": "datum.poverty_hardcore >= Hardcore_Floor"},
+    {"calculate": "-datum.poverty_absolute", "as": "abs_neg"}
   ],
-  "mark": {
-    "type": "circle",
-    "size": 140,
-    "filled": true,
-    "stroke": "#475569",
-    "strokeWidth": 0.5
-  },
-  "encoding": {
-    "x": {
-      "field": "poverty_absolute",
-      "type": "quantitative",
-      "axis": {"title": "Absolute Indicator %"}
+  "layer": [
+    {
+      "mark": {"type": "bar"},
+      "encoding": {
+        "y": {"field": "state", "type": "nominal", "axis": {"title": null}, "sort": "-x"},
+        "x": {
+          "field": "abs_neg", 
+          "type": "quantitative",
+          "axis": {"title": "← Absolute (%) | Relative (%) →", "format": "~s"}
+        },
+        "color": {
+          "datum": "Absolute Poverty",
+          "scale": {
+            "domain": ["Absolute Poverty", "Relative Poverty"],
+            "range": ["#185FA5", "#1D9E75"]
+          },
+          "legend": {
+            "title": "Poverty Metrics",
+            "orient": "right",
+            "offset": 15
+          }
+        },
+        "tooltip": [
+          {"field": "state", "title": "State"},
+          {"field": "poverty_absolute", "title": "Absolute %", "format": ".1f"}
+        ]
+      }
     },
-    "y": {
-      "field": "poverty_relative",
-      "type": "quantitative",
-      "axis": {"title": "Relative Indicator %"}
-    },
-    "color": {
-      "field": "state",
-      "type": "nominal",
-      "legend": null
-    },
-    "tooltip": [
-      {"field": "state", "type": "nominal"},
-      {"field": "poverty_absolute", "type": "quantitative"},
-      {"field": "poverty_relative", "type": "quantitative"}
-    ]
-  }
+    {
+      "mark": {"type": "bar"},
+      "encoding": {
+        "y": {"field": "state", "type": "nominal", "sort": "-x"},
+        "x": {"field": "poverty_relative", "type": "quantitative"},
+        "color": {
+          "datum": "Relative Poverty"
+        },
+        "tooltip": [
+          {"field": "state", "title": "State"},
+          {"field": "poverty_relative", "title": "Relative %", "format": ".1f"}
+        ]
+      }
+    }
+  ]
 }
